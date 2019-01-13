@@ -53,6 +53,18 @@ class ProductsController < ApplicationController
     end
   end
 
+  def requestProduct
+    respond_to do |format|
+      if @product.update([:requested], [:requested_by])
+        format.html { redirect_to @product, notice: 'Product was successfully requested.' }
+        format.json { render :show, status: :ok, location: @product }
+      else
+        format.html { render :edit }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
@@ -75,6 +87,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :description, :cost, :condition, :brand, :image)
+      params.require(:product).permit(:title, :description, :cost, :condition, :brand, :image, :sold, :requested, :requested_by, :user_id)
     end
 end

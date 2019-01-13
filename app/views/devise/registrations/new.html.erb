@@ -13,7 +13,10 @@
                 required: true,
                 wrapper: false,
                 input_html: { autocomplete: "email" }, label_html: { class:"label" }%>
-    
+    <%= f.input :contact_number,
+                required: true,
+                wrapper: false,
+                input_html: { class:"phone-number" } %>
     <%= f.input :password,
                 required: true,
                 wrapper: false,

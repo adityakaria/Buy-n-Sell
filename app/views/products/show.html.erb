@@ -28,13 +28,19 @@
 <p>
   <strong>Seller:</strong>
   Name: <%= @product.user.name %>
-   | Email: <%= @product.user.email %>
+  <br>Email: <%= @product.user.email %>
+</p>
+
+<p>
+  <strong>Sold?:</strong>
+  <%= @product.sold %>
 </p>
 
 <p>
   <strong>Image:</strong>
   <%= image_tag @product.image.thumb.url %>
 </p>
-
+<% if product_author(@product) %>
 <%= link_to 'Edit', edit_product_path(@product) %> |
+<% end %>
 <%= link_to 'Back', products_path %>

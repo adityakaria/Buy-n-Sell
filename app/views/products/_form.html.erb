@@ -19,18 +19,28 @@
     <label class="label">Upload an Image</label>
     <div class="file">
     <label class="file-label">
-    <%= f.input :image, as: :file, input_html: { class:"file-input product-image" }, required: true, label: false, wrapper: false %>
+    <%= f.input :image,required: true, as: :file, input_html: { class:"file-input product-image" }, label: false, wrapper: false %>
       <span class="file-cta">
-        <span class="file-label">Choose a file…<br></span>
+        <span class="file-label">Choose a file…</span>
+        <br>
       </span>
+    </label>
+      </div>
       <% if f.object.image? %>
+      <span class="path"><%= f.object.image %><br></span>
+      <br>
       <%= image_tag f.object.image.thumb.url %>
       <%end%> 
       
-    </label>
-  </div>
+  
 
   <br>
+
+  </label>
+  <br>
+  <label class="label">Mark as sold? 
+    <%= f.check_box :sold, unchecked: false %>
+  </label>
 
   <div class="field is-grouped">
     <div class="control">

@@ -11,7 +11,9 @@
 </section>
 <% end %>
 <br>
-<table>
+<%
+=begin%>
+ <table>
   <thead>
     <tr>
       <th>Title</th>
@@ -43,4 +45,135 @@
 
 <br>
 
-<%= link_to 'New Product', new_product_path %>
+<%= link_to 'New Product', new_product_path %> 
+<%
+=end%>
+
+
+<div class="products">
+  <% @products.each do |product| %>
+    <% if !product.sold %>
+
+    <div class="product">
+      <div class="product-thumb" position="relative">
+      <%= link_to image_tag(product.image_url(:thumb), :style => "float:right;border 1px solid #ffffff;max-width:150px;max-height:150px;", :crop => "fill", :transformation => [
+        {:crop => "scale"},
+        {:effect => "outline:100", :color => "black"}
+      ]), product %>
+      </div>
+
+
+    <div class="details">
+
+      <h3 class="title"><%= link_to product.title, product %></h3>
+
+      <% if product.condition? %>
+        <div class="condition">
+          Condition: <span class="tag is-dark"><%= product.condition %></span>
+        </div>
+
+      <p>Sold by <b><%= product.user.name %></b></p>
+
+      <p>Expected Cost to sell: <b>
+      <span class="cost tag"><%= sprintf("₹%9d", product.cost) %></span>
+      </b></p>
+
+      <% if product_author(product) %>
+      <br>
+      <%= link_to 'Edit', edit_product_path(product), class: "button is-small" %>
+      <%= link_to 'Delete', product, method: :delete, data: { confirm: "Are you sure ?" }, class: "button is-small" %>
+      <% end %>
+
+      <% if !product_author(product) %>
+        <br>
+        <%#= link_to "Request", product, method: :requestProduct %>
+        <%= link_to "Request", edit_product_path(:product => { :requestedBy => current_user.id, :requested => true} ) %>
+
+      <%
+=begin%>
+ <span class="button is-light float-right">
+        Request to Buy
+      </span>  
+<%
+=end%>
+      <% end %>
+
+      <%
+=begin%>
+ <%#= simple_form_for @product, html: { multipart: true } do |f| %>
+      <%#= f.error_notification %>
+      <%#= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+      <div class="form-inputs">
+      <label class="label"> 
+        <%#= f.button :button do %>
+          Request to buy
+        <%# end %>
+      </label>
+      </div>
+      <%# end %> 
+<%
+=end%>
+
+    </div>
+  </div>
+  <% end %>
+
+  <% elsif product.sold && current_user != nil && current_user.id == product.user_id %>
+
+    <div class="product">
+    <div class="product-thumb" position="relative">
+    <%= link_to image_tag(product.image_url(:thumb), :style => "float:right;vertical-align:middle; border 1px solid #ffffff; max-width:150px; max-height:150px;", :crop => "fill", :transformation => [
+      {:crop => "scale"},
+      {:effect => "outline:100", :color => "black"}
+    ]), product %>
+    </div>
+
+    <% if product.sold %>
+        <div class="details-container" style="background-color:lightgrey">
+
+        <h3 class="title"><%= link_to product.title, product %>
+        
+        <span class="tag is-large is-danger float-right">
+          SOLD
+        </span>
+    </h3>
+    <% else %>
+    <div class="details-container">
+
+      <h3 class="title"><%= link_to product.title, product %>
+      </h3>
+      <% end %>
+      
+
+      <% if product.condition? %>
+        <div class="condition">
+          Condition: <span class="tag is-dark"><%= product.condition %></span>
+        </div>
+      <% end %>
+
+      <p>Sold by <b><%= product.user.name %></b></p>
+
+      <p>Expected Cost to sell: <b>
+      <span class="price tag"><%= sprintf("₹%9d", product.cost) %></span>
+      </b></p>
+
+      <% if product_author(product) %>
+        <br>
+        <%= link_to 'Edit', edit_product_path(product), class: "button is-small" %>
+        <%= link_to 'Delete', product, method: :delete, data: { confirm: "Are you sure ?" }, class: "button is-small" %>
+        
+      <% end %>
+      <br>
+      <hr>
+
+    </div>
+  </div>
+  <% end %>
+
+  <% end %>
+</div>
+
+
+<br>
+
+<%= link_to 'New Product', new_product_path %> 
