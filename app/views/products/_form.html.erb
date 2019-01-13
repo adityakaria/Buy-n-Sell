@@ -1,0 +1,51 @@
+
+<%= simple_form_for @product, html: { multipart: true } do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <br>
+  <div class="form-inputs">
+    <%= f.input :title , required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+
+    <%= f.input :description, required: true, input_html: { class:"textarea" }, wrapper: false, label_html: { class:"label" } %>
+
+    <%= f.input :cost, required: true, input_html: { class:"input", maxlength: 7  }, wrapper: false, label_html: { class:"label" } %>
+
+    <label class="label">Condtion</label>
+    <%= f.input_field :condition, collection: Product::CONDITION, prompt: "Select Condition of Product"  %>
+
+    <%= f.input :brand, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+
+    <label class="label">Upload an Image</label>
+    <div class="file">
+    <label class="file-label">
+    <%= f.input :image, as: :file, input_html: { class:"file-input product-image" }, required: true, label: false, wrapper: false %>
+      <span class="file-cta">
+        <span class="file-label">Choose a file…<br></span>
+      </span>
+      <% if f.object.image? %>
+      <%= image_tag f.object.image.thumb.url %>
+      <%end%> 
+      
+    </label>
+  </div>
+
+  <br>
+
+  <div class="field is-grouped">
+    <div class="control">
+      <%= f.button :submit, class: 'button is-warning' %>
+      <%= link_to 'Cancel', products_path, class:'button is-light' %>
+    </div>
+  </div>
+
+  <%
+=begin%>
+ <div class="form-actions">
+    <%= f.button :submit %>
+  </div> 
+<%
+=end%>
+<% end %>
+
+
