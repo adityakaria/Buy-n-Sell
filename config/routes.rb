@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'registrations'
   }
+  get 'products/requestProduct'
   get 'home/index'
   get 'home/about'
   root 'products#index'

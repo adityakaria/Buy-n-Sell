@@ -27,14 +27,20 @@
 
 <p>
   <strong>Seller:</strong>
-  Name: <%= @product.user.name %>
+  <br>Name: <%= @product.user.name %>
   <br>Email: <%= @product.user.email %>
+  <br>Contact: <%= @product.user.contact_number %>
 </p>
 
-<p>
-  <strong>Sold?:</strong>
-  <%= @product.sold %>
-</p>
+<%
+=begin%>
+ <p>
+  <strong>Requests:</strong>
+  <%#= @product.requested %>
+  <br><%#= @product.requestedBy.name %>
+</p> 
+<%
+=end%>
 
 <p>
   <strong>Image:</strong>
@@ -42,5 +48,21 @@
 </p>
 <% if product_author(@product) %>
 <%= link_to 'Edit', edit_product_path(@product) %> |
+<% end %>
+<% if !product_author(@product) %>
+  <%
+=begin%>
+ <button>Request</button> 
+<%
+=end%>
+  <%
+=begin%>
+ <form>
+      <%#= link_to "request", requestProduct_path(@product), :class => 'btn btn-primary'%> 
+  </form> 
+<%
+=end%>
+  <%# @product.requested = true %>
+  <%# @product.requested_by = current_user.id %>
 <% end %>
 <%= link_to 'Back', products_path %>

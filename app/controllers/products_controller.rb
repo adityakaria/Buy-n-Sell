@@ -55,13 +55,7 @@ class ProductsController < ApplicationController
 
   def requestProduct
     respond_to do |format|
-      if @product.update([:requested], [:requested_by])
-        format.html { redirect_to @product, notice: 'Product was successfully requested.' }
-        format.json { render :show, status: :ok, location: @product }
-      else
-        format.html { render :edit }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+      @product.requested = true
     end
   end
 
