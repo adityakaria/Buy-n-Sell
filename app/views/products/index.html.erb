@@ -50,15 +50,21 @@
 
       <% if current_user != nil && !product_author(product) %>
         <br>
+      
+        <%= link_to 'Request', update_requested_by_product_path(product), class: "button is-small", method: :patch %>
         <%#= link_to "Request", product, method: :requestProduct %>
         <%#= button_to "Request", edit_product_path(:product => { :requestedBy => current_user.id, :requested => true} ) %>
-      <%= simple_form_for product, html: { multipart: true } do |f| %>
+      <%#= simple_form_for product, html: { multipart: true } do |f| %>
 
+ <%
+=begin%>
  <label class="label">Request? 
-        <%= f.check_box :requested, unchecked: false %>
-        <% product.requested_by = current_user.id %>
-      </label> 
-      <% end %>
+        <%#= f.check_box :requested, unchecked: false %>
+        <%# product.requested_by = current_user.id %>
+      </label>  
+<%
+=end%>
+      <%# end %>
       <% end %>
 
       <%
@@ -118,7 +124,7 @@
       <p>Expected Cost to sell: <b>
       <span class="price tag"><%= sprintf("₹%9d", product.cost) %></span>
       </b></p>
-      <% if product.requested %>
+      <% if product.is_requested? %>
       <p>
       requested
       </p>
@@ -148,12 +154,12 @@
     </div>
     
     <% if product.requested && current_user != nil %>
-        <div class="details-container" style="background-color:lightgrey">
+        <div class="details-container" style="background-color:lightblue">
 
         <h3 class="title"><%= link_to product.title, product %>
         
-        <span class="tag is-large is-danger float-right">
-          REQUESTED by <%= requested_by.name %>
+        <span class="tag is-large is-success float-right">
+          REQUESTED <%= product.requested_by %>
         </span>
     </h3>
     <% else %>

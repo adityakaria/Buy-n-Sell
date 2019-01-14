@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  resources :products, controllers: {
-    products: 'products'
-  }
+  resources :products do 
+    member do
+      patch :update_requested_by
+      patch :update_requested
+    end  
+  end
+
   devise_for :users, controllers: {
     registrations: 'registrations'
   }

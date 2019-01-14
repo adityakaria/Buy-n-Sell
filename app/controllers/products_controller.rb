@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :update_requested_by]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :require_author, only: [:edit, :update, :destroy]
 
@@ -53,10 +53,11 @@ class ProductsController < ApplicationController
     end
   end
 
-  def requestProduct
-    respond_to do |format|
-      @product.requested = true
-    end
+  def update_requested_by
+    new_requested_by = @product.new_requested_by(current_user)
+    @product.update_attribute(:requested_by, new_requested_by)
+    @product.update_attribute(:requested, true)
+    redirect_to @product, notice: "Requested product"
   end
 
   # DELETE /products/1
@@ -71,6 +72,10 @@ class ProductsController < ApplicationController
 
   def require_author
     redirect_to(site_home_url) unless @product.user == current_user
+  end
+
+  def is_author
+    redirect_to(site_home_url) if @product.user == current_user
   end
 
   private

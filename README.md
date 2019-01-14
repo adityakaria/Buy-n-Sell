@@ -71,7 +71,7 @@ prospective users can contact the seller.
 
 ## Features not Implemented
 ---
-- A user can request for a product (provived it's not his own), but the seller does not get a DEDICATED notification for the same.
+- A user can request for a product (provived it's not his own), and the seller is informed about it, but he/she does not know the requester
 
 ## Known Bugs
 ---
