@@ -1,5 +1,5 @@
 # Buy'n'Sell web application using RoR
-===
+***
 - [Github Link](https://github.com/adityakaria/Buy-n-Sell)
 
 ## Steps to setup
