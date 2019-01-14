@@ -55,8 +55,8 @@ Make a web application for students of NITK to buy and share items such as bicyc
 ## Features Implemented
 ---
 - Every user is able to see all the products uploaded by others.
-- A user can upload an item to sell (After logging in).
-- Once sold, user can mark the product as sold which removes it from the list of products
+- A user can can request for a product as well as upload an item to sell (After logging in).
+- Once sold, user mark the product as sold which removes it from the list of products
 available to sell.
 - The product uploaded has the necessary contact details so that other
 prospective users can contact the seller.
