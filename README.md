@@ -59,7 +59,7 @@ Make a web application for students of NITK to buy and share items such as bicyc
 - Once sold, user mark the product as sold which removes it from the list of products
 available to sell.
 - The product uploaded has the necessary contact details so that other
-prospective users can contact the seller.
+prospective users can contact the seller or buyer.
 - Uploading an item to sell has the following parameters:
   - Images
   - Title
@@ -71,7 +71,7 @@ prospective users can contact the seller.
 
 ## Features not Implemented
 ---
-- A user can request for a product (provived it's not his own), and the seller is notified about it, but he/she does not know the requester id specifically
+- All features implemented
 
 ## Known Bugs
 ---

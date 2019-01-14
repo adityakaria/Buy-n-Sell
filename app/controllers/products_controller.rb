@@ -54,8 +54,7 @@ class ProductsController < ApplicationController
   end
 
   def update_requested_by
-    new_requested_by = @product.new_requested_by(current_user)
-    @product.update_attribute(:requested_by, new_requested_by)
+    @product.update_attribute(:requested_by, current_user.name + " | " + current_user.contact_number)
     @product.update_attribute(:requested, true)
     redirect_to @product, notice: "Requested product"
   end

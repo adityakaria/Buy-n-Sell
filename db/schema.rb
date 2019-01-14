@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2019_01_13_152127) do
     t.integer "user_id"
     t.boolean "sold", default: false
     t.boolean "requested", default: false
-    t.integer "requested_by", default: 0
+    t.string "requested_by", default: ""
   end
 
   create_table "users", force: :cascade do |t|

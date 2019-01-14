@@ -3,10 +3,10 @@ class Product < ApplicationRecord
         requested == true
     end
 
-    def new_requested_by(current_user)
-        new_requested_by = current_user.id
-        return new_requested_by
-    end
+    # def new_requested_by(current_user)
+    #     new_requested_by = current_user
+    #     return new_requested_by
+    # end
     
     
     mount_uploader :image, ImageUploader
