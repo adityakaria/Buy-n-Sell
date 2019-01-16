@@ -3,8 +3,17 @@ require 'test_helper'
 class ProductsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @product = products(:one)
-    # sign_in_as users(:email => "adityakaria@rocketmail.com", :password => "123456")
-    
+    # sign_in_as users(:email => "adityakaria01@gmail.com", :password => "123456")
+    # u = User.new
+    # u.name = “blah” 
+    # u.password = u.password_confirmation = “123456”
+    # u.email = “adityakaria@rocketmail.com”  
+    # u.contact_number = "9876543210"
+    # post “users/sign_in, :user => {:email=>’adityakaria01@gmail.com’, :password=>’1233456’}
+    # assert_response :redirect
+    # follow_redirect!
+    # assert_template “products/index”
+    # assert session[:user]
   end
 
   test "should get index" do

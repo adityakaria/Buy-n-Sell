@@ -52,36 +52,7 @@
         <br>
       
         <%= link_to 'Request', update_requested_by_product_path(product), class: "button is-small", method: :patch %>
-        <%#= link_to "Request", product, method: :requestProduct %>
-        <%#= button_to "Request", edit_product_path(:product => { :requestedBy => current_user.id, :requested => true} ) %>
-      <%#= simple_form_for product, html: { multipart: true } do |f| %>
-
- <%
-=begin%>
- <label class="label">Request? 
-        <%#= f.check_box :requested, unchecked: false %>
-        <%# product.requested_by = current_user.id %>
-      </label>  
-<%
-=end%>
-      <%# end %>
       <% end %>
-
-      <%
-=begin%>
- <%#= simple_form_for @product, html: { multipart: true } do |f| %>
-      <%#= f.error_notification %>
-      <%#= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-      <div class="form-inputs">
-      <label class="label"> 
-        <%#= f.button :button do %>
-          Request to buy
-        <%# end %>
-      </label>
-      </div>
-      <%# end %> 
-<%
-=end%>
     <hr>
     </div>
   </div>
@@ -157,11 +128,11 @@
         <div class="details-container" style="background-color:lightblue">
 
         <h3 class="title"><%= link_to product.title, product %>
-        
-        <span class="tag is-large is-success float-right">
-          REQUESTED by <%= product.requested_by %>
+        <span class="tag is-medium is-success float-right">
+          Requested by <%= product.requested_by %>
         </span>
-    </h3>
+        </h3>
+
     <% else %>
     <div class="details-container">
 
@@ -172,7 +143,69 @@
 
       <% if product.condition? %>
         <div class="condition">
-          Condition: <span class="tag is-dark"><%= product.condition %></span>
+          <p>Condition: <span class="tag is-dark"><%= product.condition %></span>
+        </p>
+        </div>
+      <% end %>
+
+      <p>Sold by <b><%= product.user.name %></b></p>
+
+      <p>Expected Cost to sell: <b>
+      <span class="price tag"><%= sprintf("₹%9d", product.cost) %></span>
+      </b></p>
+
+      <% if product_author(product) %>
+        <br>
+        <%= link_to 'Edit', edit_product_path(product), class: "button is-small" %>
+        <%= link_to 'Delete', product, method: :delete, data: { confirm: "Are you sure ?" }, class: "button is-small" %>
+        
+      <% end %>
+      <br>
+      <hr>
+
+    </div>
+  </div>
+
+  <% elsif product.requested && current_user != nil && current_user.name + " | " + current_user.contact_number == product.requested_by %>
+
+    <div class="product">
+    <div class="product-thumb" position="relative">
+    <%= link_to image_tag(product.image_url(:thumb), :style => "float:right;vertical-align:middle; border 1px solid #ffffff; max-width:150px; max-height:150px;", :crop => "fill", :transformation => [
+      {:crop => "scale"},
+      {:effect => "outline:100", :color => "black"}
+    ]), product %>
+    </div>
+    
+    <% if product.requested && current_user != nil && product.sold == false %>
+        <div class="details-container" style="background-color:lightgreen">
+
+        <h3 class="title"><%= link_to product.title, product %>
+        <span class="tag is-medium is-success float-right">
+          Requested
+        </span>
+        </h3>
+
+    <% elsif product.requested && current_user != nil && product.sold == true %>
+    <div class="details-container" style="background-color:lightpink">
+
+    <h3 class="title"><%= link_to product.title, product %>
+    <span class="tag is-medium is-warning float-right">
+      Request void. Product is no longer available
+    </span>
+    </h3>
+
+    <% else %>
+    <div class="details-container">
+
+      <h3 class="title"><%= link_to product.title, product %>
+      </h3>
+      <% end %>
+      
+
+      <% if product.condition? %>
+        <div class="condition">
+          <p>Condition: <span class="tag is-dark"><%= product.condition %></span>
+        </p>
         </div>
       <% end %>
 
