@@ -77,7 +77,7 @@ prospective users can contact the seller or buyer.
 ---
 - No known bugs so far
 
-## references used:
+## References used:
 ---
 - [Ruby on Rails Tutorial by Michael Hartl](https://www.railstutorial.org/book/frontmatter)
 - [Undoing things in Rails](https://www.learneroo.com/modules/137/nodes/769)
